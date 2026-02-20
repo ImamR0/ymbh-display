@@ -5,21 +5,94 @@ const khotibURL   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9r
 let slideIndex = 0;
 const slides = ["slide-jadwal", "slide-tarawih", "slide-khotib"];
 
+/* ================= SLIDE ================= */
+
 function showSlide() {
     slides.forEach(id => {
-        document.getElementById(id).classList.add("hidden");
+        const el = document.getElementById(id);
+        if (el) el.classList.add("hidden");
     });
 
-    document.getElementById(slides[slideIndex]).classList.remove("hidden");
+    const active = document.getElementById(slides[slideIndex]);
+    if (active) active.classList.remove("hidden");
 
     slideIndex++;
     if (slideIndex >= slides.length) slideIndex = 0;
 }
 
+/* ================= FETCH CSV ================= */
+
 async function fetchCSV(url) {
     const res = await fetch(url, { cache: "no-store" });
     return (await res.text()).split("\n").slice(1);
 }
+
+/* ================= JADWAL SHOLAT ================= */
+
+async function loadJadwal() {
+    try {
+        const rows = await fetchCSV(jadwalURL);
+        const today = new Date().getDate();
+
+        rows.forEach(row => {
+            const cols = row.split(",").map(c => c.trim());
+
+            const tanggal = parseInt(cols[0]);
+
+            if (tanggal === today) {
+                document.getElementById("subuh").textContent   = cols[1];
+                document.getElementById("dzuhur").textContent  = cols[2];
+                document.getElementById("ashar").textContent   = cols[3];
+                document.getElementById("maghrib").textContent = cols[4];
+                document.getElementById("isya").textContent    = cols[5];
+
+                highlightNextPrayer(cols);
+            }
+        });
+
+    } catch (e) {
+        console.log("Jadwal gagal dimuat");
+    }
+}
+
+/* ================= HIGHLIGHT SHOLAT ================= */
+
+function highlightNextPrayer(cols) {
+    const now = new Date();
+    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+
+    const prayers = [
+        { name: "subuh", time: cols[1] },
+        { name: "dzuhur", time: cols[2] },
+        { name: "ashar", time: cols[3] },
+        { name: "maghrib", time: cols[4] },
+        { name: "isya", time: cols[5] },
+    ];
+
+    let nextPrayer = null;
+
+    prayers.forEach(p => {
+        if (p.time && p.time.includes(":")) {
+            const [h, m] = p.time.split(":").map(Number);
+            const total = h * 60 + m;
+
+            if (!nextPrayer && total > nowMinutes) {
+                nextPrayer = p.name;
+            }
+        }
+    });
+
+    if (!nextPrayer) nextPrayer = "subuh";
+
+    document.querySelectorAll(".prayer-table tr").forEach(row => {
+        row.classList.remove("highlight");
+    });
+
+    const row = document.getElementById("row-" + nextPrayer);
+    if (row) row.classList.add("highlight");
+}
+
+/* ================= IMAM TARAWIH ================= */
 
 async function loadTarawih() {
     try {
@@ -27,39 +100,43 @@ async function loadTarawih() {
         const today = new Date().getDate();
 
         let html = "";
-        let hijri = "";
-        let masehi = "";
 
         rows.forEach(row => {
-            const cols = row.split(",");
+            const cols = row.split(",").map(c => c.trim());
 
-            if (parseInt(cols[0]) === today) {
-                hijri = cols[0];
-                masehi = cols[1];
+            const tanggal = parseInt(cols[0]);
+            const lokasi  = cols[2];
+            const imam    = cols[3];
 
-                html += `<div>${cols[1]} : ${cols[2]}</div>`;
+            if (tanggal === today) {
+                html += `<div>${lokasi} : ${imam}</div>`;
             }
         });
 
-        document.getElementById("tarawih-hijri").textContent =
-            today + " Ramadhan 1447 H";
+        const hijriEl = document.getElementById("tarawih-hijri");
+        const dateEl  = document.getElementById("tarawih-date");
 
-        document.getElementById("tarawih-date").textContent =
-            new Date().toLocaleDateString("id-ID", {
+        if (hijriEl) hijriEl.textContent = today + " Ramadhan 1447 H";
+
+        if (dateEl) {
+            dateEl.textContent = new Date().toLocaleDateString("id-ID", {
                 weekday: "long",
                 day: "numeric",
                 month: "long",
                 year: "numeric"
             });
+        }
 
         document.getElementById("tarawih-content").innerHTML =
             html || "<div>Tidak ada petugas hari ini</div>";
 
-    } catch {
+    } catch (e) {
         document.getElementById("tarawih-content").innerHTML =
             "<div>Data gagal dimuat</div>";
     }
 }
+
+/* ================= KHOTIB JUMAT ================= */
 
 async function loadKhotib() {
     try {
@@ -69,32 +146,41 @@ async function loadKhotib() {
         let html = "";
 
         rows.forEach(row => {
-            const cols = row.split(",");
+            const cols = row.split(",").map(c => c.trim());
 
-            if (parseInt(cols[0]) === today) {
-                html += `<div>🕌 ${cols[1]} : ${cols[2]}</div>`;
+            const tanggal = parseInt(cols[0]);
+            const masjid  = cols[2];
+            const petugas = cols[3];
+
+            if (tanggal === today) {
+                html += `<div>🕌 ${masjid} : ${petugas}</div>`;
             }
         });
 
-        document.getElementById("khotib-hijri").textContent =
-            today + " Ramadhan 1447 H";
+        const hijriEl = document.getElementById("khotib-hijri");
+        const dateEl  = document.getElementById("khotib-date");
 
-        document.getElementById("khotib-date").textContent =
-            new Date().toLocaleDateString("id-ID", {
+        if (hijriEl) hijriEl.textContent = today + " Ramadhan 1447 H";
+
+        if (dateEl) {
+            dateEl.textContent = new Date().toLocaleDateString("id-ID", {
                 weekday: "long",
                 day: "numeric",
                 month: "long",
                 year: "numeric"
             });
+        }
 
         document.getElementById("khotib-content").innerHTML =
             html || "<div>Tidak ada petugas hari ini</div>";
 
-    } catch {
+    } catch (e) {
         document.getElementById("khotib-content").innerHTML =
             "<div>Data gagal dimuat</div>";
     }
 }
+
+/* ================= JAM REALTIME ================= */
 
 function updateClock() {
     const now = new Date();
@@ -111,12 +197,19 @@ function updateClock() {
         });
 }
 
+/* ================= INTERVAL ================= */
+
 setInterval(updateClock, 1000);
 setInterval(showSlide, 10000);
 setInterval(loadTarawih, 60000);
 setInterval(loadKhotib, 60000);
+setInterval(loadJadwal, 60000);
+
+/* ================= INITIAL LOAD ================= */
 
 updateClock();
 showSlide();
+
 loadTarawih();
 loadKhotib();
+loadJadwal();
