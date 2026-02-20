@@ -3,114 +3,114 @@
 body {
     margin: 0;
     font-family: "Segoe UI", Arial, sans-serif;
-    background-color: #0B0B0B;
-    color: #EAB308;
+    background-color: #0A0A0A;
+    color: white;
 }
 
-/* ===== LAYOUT ===== */
+/* ===== CONTAINER ===== */
 
 .container {
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background: radial-gradient(circle at top, #111, #050505);
+    background-color: #0A0A0A;
 }
 
-/* ===== HEADER ===== */
+/* ===== TOP HEADER AREA ===== */
 
 .header {
     text-align: center;
-    padding-top: 40px;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(234, 179, 8, 0.2);
 }
 
 .mosque-name {
-    font-size: 34px;
-    letter-spacing: 3px;
+    font-size: 26px;
+    letter-spacing: 2px;
     color: #EAB308;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .clock {
-    font-size: 90px;
+    font-size: 72px;
     font-weight: 600;
     color: white;
-    line-height: 1.1;
+    line-height: 1;
 }
 
 .date {
-    font-size: 22px;
-    color: #999;
+    font-size: 18px;
+    color: #EAB308;
+    margin-top: 6px;
 }
 
-/* ===== CARD / PANEL ===== */
+/* ===== MAIN CONTENT ===== */
 
 .card {
-    margin: 25px;
-    padding: 30px;
-    border-radius: 22px;
-    background: rgba(234, 179, 8, 0.06);
+    flex: 1;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 14px;
+    background: rgba(234, 179, 8, 0.05);
     border: 1px solid rgba(234, 179, 8, 0.25);
-    box-shadow: 0 0 40px rgba(234, 179, 8, 0.08);
 }
+
+/* ===== SECTION TITLE ===== */
 
 .section-title {
     text-align: center;
-    font-size: 26px;
-    margin-bottom: 20px;
+    font-size: 22px;
     color: #EAB308;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
 }
 
-/* ===== TABLE JADWAL ===== */
+/* ===== TABLE ===== */
 
 .prayer-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 34px;
+    font-size: 26px;
 }
 
 .prayer-table td {
-    padding: 14px 0;
+    padding: 10px 0;
     border-bottom: 1px solid rgba(234, 179, 8, 0.12);
 }
 
 .prayer-table td:first-child {
     color: #EAB308;
+    font-weight: 500;
 }
 
 .prayer-table td:last-child {
     text-align: right;
     color: white;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* ===== HIGHLIGHT NEXT PRAYER ===== */
 
 .highlight {
-    background: linear-gradient(
-        90deg,
-        rgba(234, 179, 8, 0.25),
-        rgba(234, 179, 8, 0.05)
-    );
+    background-color: rgba(234, 179, 8, 0.18);
+    border-radius: 8px;
     color: white;
-    border-radius: 12px;
-    font-weight: 600;
-    padding-left: 10px;
-    animation: pulse 2.5s infinite;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
-}
-
-/* ===== FOOTER ===== */
+/* ===== BOTTOM INFO PANEL ===== */
 
 .footer {
+    border-top: 1px solid rgba(234, 179, 8, 0.2);
+    padding: 12px 18px;
+    font-size: 18px;
+    color: #EAB308;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer div {
     text-align: center;
-    font-size: 20px;
-    color: #666;
-    padding-bottom: 25px;
+    flex: 1;
 }
