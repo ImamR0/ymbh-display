@@ -27,16 +27,33 @@ async function loadTarawih() {
         const today = new Date().getDate();
 
         let html = "";
+        let hijri = "";
+        let masehi = "";
 
         rows.forEach(row => {
             const cols = row.split(",");
+
             if (parseInt(cols[0]) === today) {
+                hijri = cols[0];
+                masehi = cols[1];
+
                 html += `<div>${cols[1]} : ${cols[2]}</div>`;
             }
         });
 
+        document.getElementById("tarawih-hijri").textContent =
+            today + " Ramadhan 1447 H";
+
+        document.getElementById("tarawih-date").textContent =
+            new Date().toLocaleDateString("id-ID", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+
         document.getElementById("tarawih-content").innerHTML =
-            html || "<div>Tidak ada data hari ini</div>";
+            html || "<div>Tidak ada petugas hari ini</div>";
 
     } catch {
         document.getElementById("tarawih-content").innerHTML =
@@ -53,13 +70,25 @@ async function loadKhotib() {
 
         rows.forEach(row => {
             const cols = row.split(",");
+
             if (parseInt(cols[0]) === today) {
-                html += `<div>${cols[1]} : ${cols[2]}</div>`;
+                html += `<div>🕌 ${cols[1]} : ${cols[2]}</div>`;
             }
         });
 
+        document.getElementById("khotib-hijri").textContent =
+            today + " Ramadhan 1447 H";
+
+        document.getElementById("khotib-date").textContent =
+            new Date().toLocaleDateString("id-ID", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+
         document.getElementById("khotib-content").innerHTML =
-            html || "<div>Tidak ada data hari ini</div>";
+            html || "<div>Tidak ada petugas hari ini</div>";
 
     } catch {
         document.getElementById("khotib-content").innerHTML =
