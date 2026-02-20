@@ -152,7 +152,50 @@ body {
 .hidden {
     display: none;
 }
+
 .footer div {
     flex: 1;
     text-align: center;
+}
+
+.ornament {
+    text-align: center;
+    font-size: 18px;
+    color: var(--gold);
+    margin-bottom: 8px;
+}
+
+.ornament.bottom {
+    margin-top: 12px;
+}
+
+.slide-subtitle {
+    text-align: center;
+    font-size: 18px;
+    color: var(--gold);
+    margin-bottom: 6px;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(212, 175, 55, 0.25);
+    margin: 10px 0;
+}
+
+.slide-content {
+    font-size: 22px;
+    color: white;
+    line-height: 1.6;
+}
+
+.slide-content div {
+    margin-bottom: 6px;
+}
+
+.slide-arabic {
+    margin-top: 12px;
+    text-align: center;
+    font-family: "Traditional Arabic", serif;
+    font-size: 20px;
+    color: var(--gold);
 }
