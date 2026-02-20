@@ -52,26 +52,28 @@ function highlightNextPrayer(times) {
         { name: "isya", time: times.isya },
     ];
 
-    let next = null;
-    let nextMin = Infinity;
+    let nextPrayer = null;
 
-    prayers.forEach(p => {
-        const [h, m] = p.time.split(":").map(Number);
-        const total = h * 60 + m;
+    for (let i = 0; i < prayers.length; i++) {
+        const [h, m] = prayers[i].time.split(":").map(Number);
+        const totalMinutes = h * 60 + m;
 
-        if (total >= nowMinutes && total < nextMin) {
-            nextMin = total;
-            next = p.name;
+        if (totalMinutes > nowMinutes) {
+            nextPrayer = prayers[i].name;
+            break;
         }
-    });
+    }
 
-    if (!next) next = prayers[0].name;
+    // Jika semua sholat hari ini sudah lewat → kembali ke SUBUH
+    if (!nextPrayer) {
+        nextPrayer = "subuh";
+    }
 
     document.querySelectorAll(".prayer-table tr").forEach(row => {
         row.classList.remove("highlight");
     });
 
-    const row = document.getElementById("row-" + next);
+    const row = document.getElementById("row-" + nextPrayer);
     if (row) row.classList.add("highlight");
 }
 
