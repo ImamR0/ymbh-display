@@ -114,3 +114,15 @@ body {
     text-align: center;
     flex: 1;
 }
+
+.ar {
+    font-family: "Traditional Arabic", "Amiri", serif;
+    font-size: 20px;
+    color: rgba(234, 179, 8, 0.85);
+}
+
+.id {
+    font-size: 26px;
+    font-weight: 500;
+    color: #EAB308;
+}
