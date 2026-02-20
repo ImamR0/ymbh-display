@@ -18,49 +18,32 @@
 
         <!-- ===== MAIN PANEL ===== -->
         <div class="card">
-            <div class="section-title">JADWAL SHOLAT</div>
 
-            <table class="prayer-table">
-                <tr id="row-subuh">
-                    <td>
-                        <div class="id">SUBUH</div>
-                        <div class="ar">الفجر</div>
-                    </td>
-                    <td id="subuh">--:--</td>
-                </tr>
-
-                <tr id="row-dzuhur">
-                    <td>
-                        <div class="id">DZUHUR</div>
-                        <div class="ar">الظهر</div>
-                    </td>
-                    <td id="dzuhur">--:--</td>
-                </tr>
-
-                <tr id="row-ashar">
-                    <td>
-                        <div class="id">ASHAR</div>
-                        <div class="ar">العصر</div>
-                    </td>
-                    <td id="ashar">--:--</td>
-                </tr>
-
-                <tr id="row-maghrib">
-                    <td>
-                        <div class="id">MAGHRIB</div>
-                        <div class="ar">المغرب</div>
-                    </td>
-                    <td id="maghrib">--:--</td>
-                </tr>
-
-                <tr id="row-isya">
-                    <td>
-                        <div class="id">ISYA</div>
-                        <div class="ar">العشاء</div>
-                    </td>
-                    <td id="isya">--:--</td>
-                </tr>
-            </table>
+            <!-- ===== SLIDE JADWAL ===== -->
+            <div class="slide" id="slide-jadwal">
+                <div class="section-title">JADWAL SHOLAT</div>
+        
+                <table class="prayer-table">
+                    <tr id="row-subuh"><td>SUBUH<div class="ar">الفجر</div></td><td id="subuh">--:--</td></tr>
+                    <tr id="row-dzuhur"><td>DZUHUR<div class="ar">الظهر</div></td><td id="dzuhur">--:--</td></tr>
+                    <tr id="row-ashar"><td>ASHAR<div class="ar">العصر</div></td><td id="ashar">--:--</td></tr>
+                    <tr id="row-maghrib"><td>MAGHRIB<div class="ar">المغرب</div></td><td id="maghrib">--:--</td></tr>
+                    <tr id="row-isya"><td>ISYA<div class="ar">العشاء</div></td><td id="isya">--:--</td></tr>
+                </table>
+            </div>
+        
+            <!-- ===== SLIDE TARAWIH ===== -->
+            <div class="slide hidden" id="slide-tarawih">
+                <div class="section-title">INFO IMAM TARAWIH</div>
+                <div id="tarawih-content"></div>
+            </div>
+        
+            <!-- ===== SLIDE KHOTIB ===== -->
+            <div class="slide hidden" id="slide-khotib">
+                <div class="section-title">INFO KHOTIB JUMAT</div>
+                <div id="khotib-content"></div>
+            </div>
+        
         </div>
 
         <!-- ===== FOOTER INFO ===== -->
