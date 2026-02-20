@@ -71,3 +71,10 @@ body {
     font-size: 22px;
     color: #EAB308;
 }
+
+.highlight {
+    background: rgba(234, 179, 8, 0.15);
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
