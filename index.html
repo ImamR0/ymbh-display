@@ -1,27 +1,73 @@
-<div class="container">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>YMBH Display</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <div class="header">
-        <div class="mosque-name">YMBH SUMBAWA</div>
-        <div id="clock" class="clock">00:00:00</div>
-        <div id="date" class="date">Memuat tanggal...</div>
+<body>
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div class="mosque-name">YMBH SUMBAWA</div>
+            <div id="clock" class="clock">00:00:00</div>
+            <div id="date" class="date">Memuat tanggal...</div>
+        </div>
+
+        <!-- ===== MAIN PANEL ===== -->
+        <div class="card">
+            <div class="section-title">JADWAL SHOLAT</div>
+
+            <table class="prayer-table">
+                <tr id="row-subuh">
+                    <td>SUBUH</td>
+                    <td id="subuh">--:--</td>
+                </tr>
+
+                <tr id="row-dzuhur">
+                    <td>DZUHUR</td>
+                    <td id="dzuhur">--:--</td>
+                </tr>
+
+                <tr id="row-ashar">
+                    <td>ASHAR</td>
+                    <td id="ashar">--:--</td>
+                </tr>
+
+                <tr id="row-maghrib">
+                    <td>MAGHRIB</td>
+                    <td id="maghrib">--:--</td>
+                </tr>
+
+                <tr id="row-isya">
+                    <td>ISYA</td>
+                    <td id="isya">--:--</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ===== FOOTER INFO ===== -->
+        <div class="footer">
+            <div>
+                SYURUQ<br>
+                <span id="syuruq">--:--</span>
+            </div>
+
+            <div>
+                DUHA<br>
+                <span id="duha">--:--</span>
+            </div>
+
+            <div>
+                JUMAT<br>
+                <span id="jumat">--:--</span>
+            </div>
+        </div>
+
     </div>
 
-    <div class="card">
-        <div class="section-title">JADWAL SHOLAT</div>
-
-        <table class="prayer-table">
-            <tr id="row-subuh"><td>SUBUH</td><td id="subuh">--:--</td></tr>
-            <tr id="row-dzuhur"><td>DZUHUR</td><td id="dzuhur">--:--</td></tr>
-            <tr id="row-ashar"><td>ASHAR</td><td id="ashar">--:--</td></tr>
-            <tr id="row-maghrib"><td>MAGHRIB</td><td id="maghrib">--:--</td></tr>
-            <tr id="row-isya"><td>ISYA</td><td id="isya">--:--</td></tr>
-        </table>
-    </div>
-
-    <div class="footer">
-        <div>SYURUQ<br><span id="syuruq">--:--</span></div>
-        <div>DUHA<br><span id="duha">--:--</span></div>
-        <div>JUMAT<br><span id="jumat">--:--</span></div>
-    </div>
-
-</div>
+    <script src="script.js"></script>
+</body>
+</html>
