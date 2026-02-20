@@ -1,80 +1,70 @@
-const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1101317833&single=true&output=csv";
+const jadwalURL   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1101317833&single=true&output=csv";
+const tarawihURL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1863254430&single=true&output=csv";
+const khotibURL   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1600526109&single=true&output=csv";
 
-async function fetchSchedule() {
+let slideIndex = 0;
+const slides = ["slide-jadwal", "slide-tarawih", "slide-khotib"];
+
+function showSlide() {
+    slides.forEach(id => {
+        document.getElementById(id).classList.add("hidden");
+    });
+
+    document.getElementById(slides[slideIndex]).classList.remove("hidden");
+
+    slideIndex++;
+    if (slideIndex >= slides.length) slideIndex = 0;
+}
+
+async function fetchCSV(url) {
+    const res = await fetch(url, { cache: "no-store" });
+    return (await res.text()).split("\n").slice(1);
+}
+
+async function loadTarawih() {
     try {
-        const res = await fetch(sheetURL);
-        const csv = await res.text();
-        const rows = csv.split("\n").slice(1);
-
+        const rows = await fetchCSV(tarawihURL);
         const today = new Date().getDate();
-        let todayData = null;
+
+        let html = "";
 
         rows.forEach(row => {
             const cols = row.split(",");
-
-            const tanggal = parseInt(cols[0]);
-
-            if (tanggal === today) {
-                todayData = {
-                    subuh: cols[2],
-                    dzuhur: cols[3],
-                    ashar: cols[4],
-                    maghrib: cols[5],
-                    isya: cols[6],
-                };
+            if (parseInt(cols[0]) === today) {
+                html += `<div>${cols[1]} : ${cols[2]}</div>`;
             }
         });
 
-        if (todayData) {
-            document.getElementById("subuh").textContent = todayData.subuh;
-            document.getElementById("dzuhur").textContent = todayData.dzuhur;
-            document.getElementById("ashar").textContent = todayData.ashar;
-            document.getElementById("maghrib").textContent = todayData.maghrib;
-            document.getElementById("isya").textContent = todayData.isya;
+        document.getElementById("tarawih-content").innerHTML =
+            html || "<div>Tidak ada data hari ini</div>";
 
-            highlightNextPrayer(todayData);
-        }
-
-    } catch (err) {
-        console.error("Gagal ambil jadwal:", err);
+    } catch {
+        document.getElementById("tarawih-content").innerHTML =
+            "<div>Data gagal dimuat</div>";
     }
 }
 
-function highlightNextPrayer(times) {
-    const now = new Date();
-    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+async function loadKhotib() {
+    try {
+        const rows = await fetchCSV(khotibURL);
+        const today = new Date().getDate();
 
-    const prayers = [
-        { name: "subuh", time: times.subuh },
-        { name: "dzuhur", time: times.dzuhur },
-        { name: "ashar", time: times.ashar },
-        { name: "maghrib", time: times.maghrib },
-        { name: "isya", time: times.isya },
-    ];
+        let html = "";
 
-    let nextPrayer = null;
+        rows.forEach(row => {
+            const cols = row.split(",");
+            if (parseInt(cols[0]) === today) {
+                html += `<div>${cols[1]} : ${cols[2]}</div>`;
+            }
+        });
 
-    for (let i = 0; i < prayers.length; i++) {
-        const [h, m] = prayers[i].time.split(":").map(Number);
-        const totalMinutes = h * 60 + m;
+        document.getElementById("khotib-content").innerHTML =
+            html || "<div>Tidak ada data hari ini</div>";
 
-        if (totalMinutes > nowMinutes) {
-            nextPrayer = prayers[i].name;
-            break;
-        }
+    } catch {
+        document.getElementById("khotib-content").innerHTML =
+            "<div>Data gagal dimuat</div>";
     }
-
-    // Jika semua sholat hari ini sudah lewat → kembali ke SUBUH
-    if (!nextPrayer) {
-        nextPrayer = "subuh";
-    }
-
-    document.querySelectorAll(".prayer-table tr").forEach(row => {
-        row.classList.remove("highlight");
-    });
-
-    const row = document.getElementById("row-" + nextPrayer);
-    if (row) row.classList.add("highlight");
 }
 
 function updateClock() {
@@ -93,7 +83,11 @@ function updateClock() {
 }
 
 setInterval(updateClock, 1000);
-setInterval(fetchSchedule, 60000);
+setInterval(showSlide, 10000);
+setInterval(loadTarawih, 60000);
+setInterval(loadKhotib, 60000);
 
 updateClock();
-fetchSchedule();
+showSlide();
+loadTarawih();
+loadKhotib();
