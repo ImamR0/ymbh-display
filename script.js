@@ -40,11 +40,11 @@ async function loadJadwal() {
             const tanggal = parseInt(cols[0]);
 
             if (tanggal === today) {
-                document.getElementById("subuh").textContent   = cols[1];
-                document.getElementById("dzuhur").textContent  = cols[2];
-                document.getElementById("ashar").textContent   = cols[3];
-                document.getElementById("maghrib").textContent = cols[4];
-                document.getElementById("isya").textContent    = cols[5];
+                document.getElementById("subuh").textContent   = cols[2];
+                document.getElementById("dzuhur").textContent  = cols[3];
+                document.getElementById("ashar").textContent   = cols[4];
+                document.getElementById("maghrib").textContent = cols[5];
+                document.getElementById("isya").textContent    = cols[6];
 
                 highlightNextPrayer(cols);
             }
