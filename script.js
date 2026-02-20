@@ -1,19 +1,43 @@
-const todayData = {
-    subuh: "04:59",
-    dzuhur: "12:30",
-    ashar: "15:35",
-    maghrib: "18:40",
-    isya: "19:50"
-};
+const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1101317833&single=true&output=csv";
 
-function applySchedule() {
-    document.getElementById("subuh").textContent = todayData.subuh;
-    document.getElementById("dzuhur").textContent = todayData.dzuhur;
-    document.getElementById("ashar").textContent = todayData.ashar;
-    document.getElementById("maghrib").textContent = todayData.maghrib;
-    document.getElementById("isya").textContent = todayData.isya;
+async function fetchSchedule() {
+    try {
+        const res = await fetch(sheetURL);
+        const csv = await res.text();
+        const rows = csv.split("\n").slice(1);
 
-    highlightNextPrayer(todayData);
+        const today = new Date().getDate();
+        let todayData = null;
+
+        rows.forEach(row => {
+            const cols = row.split(",");
+
+            const tanggal = parseInt(cols[0]);
+
+            if (tanggal === today) {
+                todayData = {
+                    subuh: cols[2],
+                    dzuhur: cols[3],
+                    ashar: cols[4],
+                    maghrib: cols[5],
+                    isya: cols[6],
+                };
+            }
+        });
+
+        if (todayData) {
+            document.getElementById("subuh").textContent = todayData.subuh;
+            document.getElementById("dzuhur").textContent = todayData.dzuhur;
+            document.getElementById("ashar").textContent = todayData.ashar;
+            document.getElementById("maghrib").textContent = todayData.maghrib;
+            document.getElementById("isya").textContent = todayData.isya;
+
+            highlightNextPrayer(todayData);
+        }
+
+    } catch (err) {
+        console.error("Gagal ambil jadwal:", err);
+    }
 }
 
 function highlightNextPrayer(times) {
@@ -40,7 +64,10 @@ function highlightNextPrayer(times) {
         }
     }
 
-    if (!nextPrayer) nextPrayer = "subuh";
+    // Jika semua sholat hari ini sudah lewat → kembali ke SUBUH
+    if (!nextPrayer) {
+        nextPrayer = "subuh";
+    }
 
     document.querySelectorAll(".prayer-table tr").forEach(row => {
         row.classList.remove("highlight");
@@ -63,11 +90,10 @@ function updateClock() {
             month: "long",
             year: "numeric"
         });
-
-    highlightNextPrayer(todayData);
 }
 
 setInterval(updateClock, 1000);
+setInterval(fetchSchedule, 60000);
 
 updateClock();
-applySchedule();
+fetchSchedule();
