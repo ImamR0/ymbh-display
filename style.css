@@ -51,14 +51,10 @@ body {
 }
 
 .clock {
-    font-size: 84px;
-    font-weight: 600;
-    color: white;
-    margin-top: 4px;
-
+    letter-spacing: 2px;
     text-shadow:
-        0 0 40px rgba(0, 0, 0, 0.95),
-        0 0 10px rgba(0, 0, 0, 0.9);
+        0 0 35px rgba(0, 0, 0, 0.95),
+        0 0 12px rgba(212, 175, 55, 0.25);
 }
 
 .date {
@@ -152,11 +148,11 @@ body {
 .highlight {
     background: linear-gradient(
         90deg,
-        rgba(212, 175, 55, 0.55),
-        rgba(212, 175, 55, 0.10)
+        rgba(212, 175, 55, 0.65),
+        rgba(212, 175, 55, 0.12)
     );
-    border-radius: 12px;
-    transition: all 0.4s ease;
+
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.25);
 }
 
 /* ===== SLIDES ===== */
