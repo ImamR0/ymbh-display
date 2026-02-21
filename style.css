@@ -68,6 +68,24 @@ body {
     opacity: 0.9;
 }
 
+.next-prayer-box {
+    margin-top: 6px;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.9;
+}
+
+#next-prayer-name {
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+#next-prayer-countdown {
+    font-size: 28px;
+    font-weight: 600;
+    color: white;
+}
+
 /* ===== MAIN PANEL (GLASS EFFECT) ===== */
 
 .card {
