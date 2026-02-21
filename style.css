@@ -102,6 +102,13 @@ body {
     color: white;
     letter-spacing: 1px;
     text-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+    animation: softPulse 2.8s infinite ease-in-out;
+}
+
+@keyframes softPulse {
+    0%   { opacity: 0.85; }
+    50%  { opacity: 1; }
+    100% { opacity: 0.85; }
 }
 
 /* ===== MAIN PANEL (GLASS EFFECT) ===== */
