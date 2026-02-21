@@ -209,6 +209,55 @@ function updateClock() {
         });
 }
 
+function updateCountdown(cols) {
+    const now = new Date();
+    const nowMs = now.getTime();
+
+    const prayers = [
+        { name: "Subuh",   time: cols[2] },
+        { name: "Dzuhur",  time: cols[3] },
+        { name: "Ashar",   time: cols[4] },
+        { name: "Maghrib", time: cols[5] },
+        { name: "Isya",    time: cols[6] },
+    ];
+
+    let next = null;
+
+    prayers.forEach(p => {
+        if (!next && p.time && p.time.includes(":")) {
+            const [h, m] = p.time.split(":").map(Number);
+
+            const prayerDate = new Date();
+            prayerDate.setHours(h, m, 0, 0);
+
+            if (prayerDate.getTime() > nowMs) {
+                next = { ...p, date: prayerDate };
+            }
+        }
+    });
+
+    if (!next) {
+        const [h, m] = cols[2].split(":").map(Number);
+        const prayerDate = new Date();
+        prayerDate.setDate(prayerDate.getDate() + 1);
+        prayerDate.setHours(h, m, 0, 0);
+
+        next = { name: "Subuh", date: prayerDate };
+    }
+
+    const diff = next.date.getTime() - nowMs;
+
+    const hours = Math.floor(diff / 3600000);
+    const mins  = Math.floor((diff % 3600000) / 60000);
+    const secs  = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById("next-prayer-name").textContent =
+        "Menuju " + next.name;
+
+    document.getElementById("next-prayer-countdown").textContent =
+        `${hours.toString().padStart(2,"0")}:${mins.toString().padStart(2,"0")}:${secs.toString().padStart(2,"0")}`;
+}
+
 /* ================= INTERVAL ================= */
 
 setInterval(updateClock, 1000);
