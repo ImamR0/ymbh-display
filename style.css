@@ -307,3 +307,26 @@ body {
 .highlight td:first-child {
     color: #FFD86B;   /* Gold lebih terang saat aktif */
 }
+
+.kajian-box {
+    text-align: center;
+    font-size: 18px;
+    color: var(--gold);
+    opacity: 0.95;
+    margin-bottom: 4px;
+}
+
+.hadits-box {
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    opacity: 0.9;
+
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* animasi halus */
+.hadits-box.fade {
+    opacity: 0;
+    transform: translateY(4px);
+}
