@@ -1,6 +1,8 @@
-const jadwalURL   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1101317833&single=true&output=csv";
-const tarawihURL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1863254430&single=true&output=csv";
-const khotibURL   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1600526109&single=true&output=csv";
+const jadwalURL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1101317833&single=true&output=csv";
+const tarawihURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1863254430&single=true&output=csv";
+const khotibURL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1600526109&single=true&output=csv";
+const kajianURL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1378448488&single=true&output=csv";
+const haditsURL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=162757049&single=true&output=csv";
 
 function getSlidesForToday() {
     const today = new Date().getDay(); // 5 = Jumat
@@ -14,6 +16,8 @@ function getSlidesForToday() {
 
 let slides = getSlidesForToday();
 let slideIndex = 0;
+let haditsList = [];
+let haditsIndex = 0;
 
 /* ================= SLIDE ================= */
 
@@ -193,6 +197,83 @@ async function loadKhotib() {
     }
 }
 
+/* ================= LOAD KAJIAN ================= */
+
+async function loadKajian() {
+    try {
+        const rows = await fetchCSV(kajianURL);
+        const today = new Date().getDate();
+
+        let found = false;
+
+        rows.forEach(row => {
+            const cols = row.split(",").map(c => c.trim());
+
+            const tanggal  = parseInt(cols[0]);
+            const judul    = cols[2];
+            const pemateri = cols[3];
+            const waktu    = cols[4];
+
+            if (tanggal === today) {
+                document.getElementById("kajian-box").textContent =
+                    `Kajian: ${judul} • ${pemateri} • ${waktu}`;
+                found = true;
+            }
+        });
+
+        if (!found) {
+            document.getElementById("kajian-box").textContent =
+                "Tidak ada kajian hari ini";
+        }
+
+    } catch (e) {
+        document.getElementById("kajian-box").textContent =
+            "Info kajian tidak tersedia";
+    }
+}
+
+/* ================= LOAD HADITS ================= */
+
+async function loadHadits() {
+    try {
+        const rows = await fetchCSV(haditsURL);
+
+        haditsList = rows
+            .map(r => r.split(","))
+            .filter(cols => cols[1]?.trim().toUpperCase() === "YA")
+            .map(cols => cols[0].trim());
+
+        if (haditsList.length === 0) {
+            document.getElementById("hadits-box").textContent =
+                "Hadits tidak tersedia";
+            return;
+        }
+
+        haditsIndex = 0;
+        showHadits();
+
+    } catch (e) {
+        document.getElementById("hadits-box").textContent =
+            "Hadits gagal dimuat";
+    }
+}
+
+function showHadits() {
+    const box = document.getElementById("hadits-box");
+
+    box.classList.add("fade");
+
+    setTimeout(() => {
+        box.textContent = haditsList[haditsIndex];
+
+        box.classList.remove("fade");
+
+        haditsIndex++;
+        if (haditsIndex >= haditsList.length) haditsIndex = 0;
+
+    }, 300);
+}
+
 /* ================= JAM REALTIME ================= */
 
 function updateClock() {
@@ -266,6 +347,9 @@ setInterval(showSlide, 10000);
 setInterval(loadTarawih, 60000);
 setInterval(loadKhotib, 60000);
 setInterval(loadJadwal, 1000);
+setInterval(showHadits, 8000);     // rotasi hadits
+setInterval(loadHadits, 180000);   // refresh sheet hadits
+setInterval(loadKajian, 60000);    // refresh kajian
 
 /* ================= INITIAL LOAD ================= */
 
@@ -275,3 +359,5 @@ showSlide();
 loadTarawih();
 loadKhotib();
 loadJadwal();
+loadKajian();
+loadHadits();
