@@ -108,9 +108,7 @@ body {
     width: 92%;
     max-width: 1000px;
 
-    margin-top: 40px;
-    margin-bottom: auto;
-
+    margin: 0;              /* ini kunci utama */
     padding: 26px;
     border-radius: 20px;
 
