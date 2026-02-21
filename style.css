@@ -12,9 +12,10 @@ body {
     font-family: "Segoe UI", Arial, sans-serif;
     background-color: black;
     color: white;
+    overflow: hidden;
 }
 
-/* ===== BACKGROUND FOTO ===== */
+/* ===== BACKGROUND ===== */
 
 .container {
     width: 100vw;
@@ -25,8 +26,8 @@ body {
 
     background-image:
         linear-gradient(
-            rgba(0, 0, 0, 0.70),
-            rgba(0, 0, 0, 0.85)
+            rgba(0, 0, 0, 0.72),
+            rgba(0, 0, 0, 0.88)
         ),
         url("bg-masjidilharam.jpg");
 
@@ -39,20 +40,21 @@ body {
 
 .header {
     text-align: center;
-    padding-top: 30px;
+    padding-top: 28px;
 }
 
 .mosque-name {
-    font-size: 26px;
-    letter-spacing: 2px;
+    font-size: 24px;
+    letter-spacing: 3px;
     color: var(--gold);
-    margin-bottom: 5px;
+    opacity: 0.9;
 }
 
 .clock {
-    font-size: 82px;
+    font-size: 84px;
     font-weight: 600;
     color: white;
+    margin-top: 4px;
 
     text-shadow:
         0 0 40px rgba(0, 0, 0, 0.95),
@@ -60,23 +62,46 @@ body {
 }
 
 .date {
-    font-size: 18px;
+    font-size: 17px;
     color: var(--gold);
-    margin-top: 8px;
+    margin-top: 6px;
+    opacity: 0.85;
 }
 
-/* ===== MAIN PANEL ===== */
+/* ===== MAIN PANEL (GLASS EFFECT) ===== */
 
 .card {
-    margin: 20px;
-    padding: 22px;
-    border-radius: 18px;
+    margin: 18px;
+    padding: 26px;
+    border-radius: 20px;
 
-    background: rgba(0, 0, 0, 0.68);   /* lebih solid */
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 
     border: 1px solid rgba(212, 175, 55, 0.35);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.7),
+        0 0 22px rgba(212, 175, 55, 0.12);
+
+    position: relative;
+}
+
+/* Gradient glow halus */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    pointer-events: none;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(212, 175, 55, 0.08),
+        transparent
+    );
 }
 
 /* ===== TITLE ===== */
@@ -85,7 +110,8 @@ body {
     text-align: center;
     font-size: 22px;
     color: var(--gold);
-    margin-bottom: 10px;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
 }
 
 /* ===== TABLE ===== */
@@ -97,8 +123,8 @@ body {
 }
 
 .prayer-table td {
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
 }
 
 .prayer-table td:first-child {
@@ -112,80 +138,65 @@ body {
     font-weight: 600;
 }
 
-/* ===== ARABIC TEXT ===== */
+/* ===== ARABIC ===== */
 
 .ar {
     font-family: "Traditional Arabic", "Amiri", serif;
     font-size: 18px;
     color: rgba(212, 175, 55, 0.95);
+    margin-top: 2px;
 }
 
-/* ===== HIGHLIGHT ===== */
+/* ===== HIGHLIGHT SHOLAT ===== */
 
 .highlight {
     background: linear-gradient(
         90deg,
         rgba(212, 175, 55, 0.55),
-        rgba(212, 175, 55, 0.12)
+        rgba(212, 175, 55, 0.10)
     );
-    border-radius: 10px;
+    border-radius: 12px;
+    transition: all 0.4s ease;
 }
 
-/* ===== FOOTER ===== */
-
-.footer {
-    display: flex;
-    border-top: 1px solid rgba(212, 175, 55, 0.35);
-    padding: 12px;
-    font-size: 18px;
-    color: var(--gold);
-
-    background: rgba(0, 0, 0, 0.55);
-}
+/* ===== SLIDES ===== */
 
 .slide {
     width: 100%;
     height: 100%;
-    transition: opacity 0.6s ease;
+    animation: fadeIn 0.6s ease;
 }
 
 .hidden {
     display: none;
 }
 
-.footer div {
-    flex: 1;
-    text-align: center;
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.985); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-.ornament {
-    text-align: center;
-    font-size: 18px;
-    color: var(--gold);
-    margin-bottom: 8px;
-}
-
-.ornament.bottom {
-    margin-top: 12px;
-}
+/* ===== TARAWIH & KHOTIB ===== */
 
 .slide-subtitle {
     text-align: center;
     font-size: 18px;
     color: var(--gold);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    opacity: 0.9;
 }
 
 .divider {
     height: 1px;
     background: rgba(212, 175, 55, 0.25);
-    margin: 10px 0;
+    margin: 12px 0 14px 0;
 }
 
 .slide-content {
     font-size: 22px;
     color: white;
     line-height: 1.6;
+    text-align: left;
 }
 
 .slide-content div {
@@ -193,9 +204,35 @@ body {
 }
 
 .slide-arabic {
-    margin-top: 12px;
+    margin-top: 16px;
     text-align: center;
     font-family: "Traditional Arabic", serif;
     font-size: 20px;
     color: var(--gold);
+    opacity: 0.9;
+}
+
+.ornament {
+    text-align: center;
+    font-size: 17px;
+    color: var(--gold);
+    opacity: 0.75;
+    margin-bottom: 6px;
+}
+
+.ornament.bottom {
+    margin-top: 14px;
+}
+
+/* ===== FOOTER ===== */
+
+.footer {
+    border-top: 1px solid rgba(212, 175, 55, 0.35);
+    padding: 10px;
+    font-size: 17px;
+    color: var(--gold);
+    text-align: center;
+
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
 }
