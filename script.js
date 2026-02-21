@@ -59,6 +59,7 @@ async function loadJadwal() {
                 document.getElementById("isya").textContent    = cols[6];
 
                 highlightNextPrayer(cols);
+                updateCountdown(cols);
             }
         });
 
@@ -264,7 +265,7 @@ setInterval(updateClock, 1000);
 setInterval(showSlide, 10000);
 setInterval(loadTarawih, 60000);
 setInterval(loadKhotib, 60000);
-setInterval(loadJadwal, 60000);
+setInterval(loadJadwal, 1000);
 
 /* ================= INITIAL LOAD ================= */
 
