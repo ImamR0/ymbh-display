@@ -23,8 +23,6 @@ body {
     display: flex;
     flex-direction: column;
 
-    align-items: center;      /* penting */
-
     background-image:
         linear-gradient(
             rgba(0, 0, 0, 0.72),
@@ -143,6 +141,14 @@ body {
         rgba(212, 175, 55, 0.08),
         transparent
     );
+}
+
+.middle {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ===== TITLE ===== */
