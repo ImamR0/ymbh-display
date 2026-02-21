@@ -2,12 +2,24 @@ const jadwalURL   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9r
 const tarawihURL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1863254430&single=true&output=csv";
 const khotibURL   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwDvPc0X9rWyJ0MI95-UPaoVBq-yB-_mW4VVE2eIJmnzvONCbfy68YhF5tJykHeq9kit2vLxrUuY_L/pub?gid=1600526109&single=true&output=csv";
 
+function getSlidesForToday() {
+    const today = new Date().getDay(); // 5 = Jumat
+
+    if (today === 5) {
+        return ["slide-jadwal", "slide-tarawih", "slide-khotib"];
+    } else {
+        return ["slide-jadwal", "slide-tarawih"];
+    }
+}
+
+let slides = getSlidesForToday();
 let slideIndex = 0;
-const slides = ["slide-jadwal", "slide-tarawih", "slide-khotib"];
 
 /* ================= SLIDE ================= */
 
 function showSlide() {
+    slides = getSlidesForToday(); // refresh tiap rotasi
+
     slides.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.add("hidden");
@@ -62,21 +74,21 @@ function highlightNextPrayer(cols) {
     const nowMinutes = now.getHours() * 60 + now.getMinutes();
 
     const prayers = [
-        { name: "subuh", time: cols[1] },
-        { name: "dzuhur", time: cols[2] },
-        { name: "ashar", time: cols[3] },
-        { name: "maghrib", time: cols[4] },
-        { name: "isya", time: cols[5] },
+        { name: "subuh",   time: cols[2] },
+        { name: "dzuhur",  time: cols[3] },
+        { name: "ashar",   time: cols[4] },
+        { name: "maghrib", time: cols[5] },
+        { name: "isya",    time: cols[6] },
     ];
 
     let nextPrayer = null;
 
     prayers.forEach(p => {
-        if (p.time && p.time.includes(":")) {
+        if (!nextPrayer && p.time && p.time.includes(":")) {
             const [h, m] = p.time.split(":").map(Number);
             const total = h * 60 + m;
 
-            if (!nextPrayer && total > nowMinutes) {
+            if (total > nowMinutes) {
                 nextPrayer = p.name;
             }
         }
