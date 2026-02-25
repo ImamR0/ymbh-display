@@ -241,7 +241,7 @@ body {
 
 .slide-subtitle {
     text-align: center;
-    font-size: 30px;
+    font-size: 40px;
     color: var(--gold);
     margin-bottom: 8px;
     opacity: 0.9;
@@ -254,7 +254,7 @@ body {
 }
 
 .slide-content {
-    font-size: 30px;
+    font-size: 40px;
     color: white;
     line-height: 1.6;
     text-align: left;
@@ -268,14 +268,14 @@ body {
     margin-top: 16px;
     text-align: center;
     font-family: "Traditional Arabic", serif;
-    font-size: 30px;
+    font-size: 40px;
     color: var(--gold);
     opacity: 0.9;
 }
 
 .ornament {
     text-align: center;
-    font-size: 30px;
+    font-size: 40px;
     color: var(--gold);
     opacity: 0.75;
     margin-bottom: 6px;
