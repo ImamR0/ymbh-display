@@ -47,7 +47,7 @@ body {
 }
 
 .mosque-name {
-    font-size: 26px;
+    font-size: 40px;
     letter-spacing: 3px;
     color: var(--gold);
     opacity: 0.95;
@@ -66,7 +66,7 @@ body {
 }
 
 .date {
-    font-size: 18px;
+    font-size: 30px;
     color: var(--gold);
     opacity: 0.9;
 }
