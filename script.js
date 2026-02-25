@@ -10,7 +10,7 @@ function getSlidesForToday() {
     if (today === 5) {
         return ["slide-jadwal", "slide-tarawih", "slide-khotib"];
     } else {
-        return ["slide-jadwal"];
+        return ["slide-jadwal", "slide-tarawih"];
     }
 }
 
