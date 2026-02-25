@@ -364,7 +364,7 @@ setInterval(loadKhotib, 60000);
 setInterval(loadJadwal, 1000);
 setInterval(showHadits, 8000);     // rotasi hadits
 setInterval(loadHadits, 180000);   // refresh sheet hadits
-setInterval(loadKajian, 60000);    // refresh kajian
+//setInterval(loadKajian, 60000);    // refresh kajian
 
 /* ================= INITIAL LOAD ================= */
 
@@ -374,5 +374,5 @@ showSlide();
 loadTarawih();
 loadKhotib();
 loadJadwal();
-loadKajian();
+//loadKajian();
 loadHadits();
