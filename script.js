@@ -387,7 +387,7 @@ setInterval(updateClock, 1000);
 setInterval(showSlide, 10000);
 setInterval(loadTarawih, 60000);
 setInterval(loadKhotib, 60000);
-setInterval(loadJadwal, 60000);
+setInterval(loadJadwal, 1000);
 setInterval(showHadits, 8000);     // rotasi hadits
 setInterval(loadHadits, 180000);   // refresh sheet hadits
 //setInterval(loadKajian, 60000);    // refresh kajian
