@@ -10,7 +10,7 @@ function getSlidesForToday() {
     if (today === 5) {
         return ["slide-jadwal", "slide-tarawih", "slide-khotib"];
     } else {
-        return ["slide-jadwal"];
+        return ["slide-jadwal", "slide-tarawih",];
     }
 }
 
@@ -18,6 +18,21 @@ let slides = getSlidesForToday();
 let slideIndex = 0;
 let haditsList = [];
 let haditsIndex = 0;
+
+/* ================= HIJRI ================= */
+
+function getHijriDatePretty() {
+   const now = new Date();
+   const parts = new Intl.DateTimeFormat("id-ID-u-ca-islamic", {
+       day: "numeric",
+       month: "long",
+       year: "numeric"
+   }).formatToParts(now);
+   const day = parts.find(p => p.type === "day").value;
+   const month = parts.find(p => p.type === "month").value;
+   const year = parts.find(p => p.type === "year").value;
+   return `${day} ${month} ${year} H`;
+}
 
 /* ================= SLIDE ================= */
 
@@ -133,7 +148,7 @@ async function loadTarawih() {
         const hijriEl = document.getElementById("tarawih-hijri");
         const dateEl  = document.getElementById("tarawih-date");
 
-        if (hijriEl) hijriEl.textContent = today + " Ramadhan 1447 H";
+        if (hijriEl) hijriEl.textContent = getHijriDate();
 
         if (dateEl) {
             dateEl.textContent = new Date().toLocaleDateString("id-ID", {
@@ -177,7 +192,7 @@ async function loadKhotib() {
         const hijriEl = document.getElementById("khotib-hijri");
         const dateEl  = document.getElementById("khotib-date");
 
-        if (hijriEl) hijriEl.textContent = today + " Ramadhan 1447 H";
+        if (hijriEl) hijriEl.textContent = getHijriDate();
 
         if (dateEl) {
             dateEl.textContent = new Date().toLocaleDateString("id-ID", {
