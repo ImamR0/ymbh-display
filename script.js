@@ -148,7 +148,7 @@ async function loadTarawih() {
         const hijriEl = document.getElementById("tarawih-hijri");
         const dateEl  = document.getElementById("tarawih-date");
 
-        if (hijriEl) hijriEl.textContent = getHijriDate();
+        if (hijriEl) hijriEl.textContent = getHijriDatePretty();
 
         if (dateEl) {
             dateEl.textContent = new Date().toLocaleDateString("id-ID", {
@@ -192,7 +192,7 @@ async function loadKhotib() {
         const hijriEl = document.getElementById("khotib-hijri");
         const dateEl  = document.getElementById("khotib-date");
 
-        if (hijriEl) hijriEl.textContent = getHijriDate();
+        if (hijriEl) hijriEl.textContent = getHijriDatePretty();
 
         if (dateEl) {
             dateEl.textContent = new Date().toLocaleDateString("id-ID", {
