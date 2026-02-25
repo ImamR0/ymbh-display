@@ -91,13 +91,13 @@ body {
 }
 
 #next-prayer-name {
-    font-size: 15px;
+    font-size: 40px;
     color: var(--gold);
     opacity: 0.85;
 }
 
 #next-prayer-countdown {
-    font-size: 26px;
+    font-size: 70px;
     font-weight: 600;
     color: white;
     letter-spacing: 1px;
