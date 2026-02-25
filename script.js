@@ -18,6 +18,7 @@ let slides = getSlidesForToday();
 let slideIndex = 0;
 let haditsList = [];
 let haditsIndex = 0;
+let todayCols = null;
 
 /* ================= HIJRI ================= */
 
@@ -34,21 +35,43 @@ function getHijriDatePretty() {
    return `${day} ${month} ${year} H`;
 }
 
+/* ================= ADZAN ================= */
+
+function isAdzanWindow(cols) {
+   const now = new Date();
+   const nowMs = now.getTime();
+   const prayerTimes = [cols[2], cols[3], cols[4], cols[5], cols[6]];
+   for (let time of prayerTimes) {
+       if (!time || !time.includes(":")) continue;
+       const [h, m] = time.split(":").map(Number);
+       const adzan = new Date();
+       adzan.setHours(h, m, 0, 0);
+       const start = new Date(adzan.getTime() - 5 * 60000);
+       const end   = new Date(adzan.getTime() + 5 * 60000);
+       if (nowMs >= start.getTime() && nowMs <= end.getTime()) {
+           return true;
+       }
+   }
+   return false;
+}
+
 /* ================= SLIDE ================= */
 
 function showSlide() {
-    slides = getSlidesForToday(); // refresh tiap rotasi
-
-    slides.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.classList.add("hidden");
-    });
-
-    const active = document.getElementById(slides[slideIndex]);
-    if (active) active.classList.remove("hidden");
-
-    slideIndex++;
-    if (slideIndex >= slides.length) slideIndex = 0;
+   if (todayCols && isAdzanWindow(todayCols)) {
+       slides = ["slide-jadwal"];     // kunci jadwal
+       slideIndex = 0;
+   } else {
+       slides = getSlidesForToday();  // normal
+   }
+   slides.forEach(id => {
+       const el = document.getElementById(id);
+       if (el) el.classList.add("hidden");
+   });
+   const active = document.getElementById(slides[slideIndex]);
+   if (active) active.classList.remove("hidden");
+   slideIndex++;
+   if (slideIndex >= slides.length) slideIndex = 0;
 }
 
 /* ================= FETCH CSV ================= */
@@ -86,6 +109,9 @@ async function loadJadwal() {
         console.log("Jadwal gagal dimuat");
     }
 }
+
+if (tanggal === today) {
+   todayCols = cols;
 
 /* ================= HIGHLIGHT SHOLAT ================= */
 
