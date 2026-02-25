@@ -94,6 +94,9 @@ async function loadJadwal() {
             const tanggal = parseInt(cols[0]);
 
             if (tanggal === today) {
+
+               todayCols = cols;
+                
                 document.getElementById("subuh").textContent   = cols[2];
                 document.getElementById("dzuhur").textContent  = cols[3];
                 document.getElementById("ashar").textContent   = cols[4];
@@ -109,9 +112,6 @@ async function loadJadwal() {
         console.log("Jadwal gagal dimuat");
     }
 }
-
-if (tanggal === today) {
-   todayCols = cols;
 
 /* ================= HIGHLIGHT SHOLAT ================= */
 
@@ -387,7 +387,7 @@ setInterval(updateClock, 1000);
 setInterval(showSlide, 10000);
 setInterval(loadTarawih, 60000);
 setInterval(loadKhotib, 60000);
-setInterval(loadJadwal, 1000);
+setInterval(loadJadwal, 60000);
 setInterval(showHadits, 8000);     // rotasi hadits
 setInterval(loadHadits, 180000);   // refresh sheet hadits
 //setInterval(loadKajian, 60000);    // refresh kajian
