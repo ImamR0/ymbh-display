@@ -328,9 +328,9 @@ body {
 
 .logo {
    position: absolute;
-   top: 20px;
-   right: 30px;
-   width: 120px;          /* sesuaikan */
+   top: 70px;
+   right: 20px;
+   width: 100px;          /* sesuaikan */
    height: auto;
    opacity: 0.9;
    filter: drop-shadow(0 0 10px rgba(0,0,0,0.6));
@@ -339,7 +339,7 @@ body {
 .logo-ymbh {
    position: absolute;
    top: 20px;
-   left: 30px;
+   left: 20px;
    width: 65px;          /* sesuaikan */
    height: auto;
    opacity: 0.9;
