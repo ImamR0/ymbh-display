@@ -58,22 +58,43 @@ function isAdzanWindow(cols) {
 /* ================= SLIDE ================= */
 
 function showSlide() {
-   if (todayCols && isAdzanWindow(todayCols)) {
-       slides = ["slide-jadwal"];     // kunci jadwal
-       slideIndex = 0;
-   } else {
-       slides = getSlidesForToday();  // normal
-   }
-   slides.forEach(id => {
-       const el = document.getElementById(id);
-       if (el) el.classList.add("hidden");
-   });
-   const active = document.getElementById(slides[slideIndex]);
-   if (active) active.classList.remove("hidden");
-   slideIndex++;
-   if (slideIndex >= slides.length) slideIndex = 0;
-}
 
+    /* 1. Tentukan mode */
+
+    let activeSlides;
+
+    if (todayCols && isAdzanWindow(todayCols)) {
+
+        activeSlides = ["slide-jadwal"];   // mode adzan
+
+        slideIndex = 0;
+
+    } else {
+
+        activeSlides = getSlidesForToday(); // normal
+
+    }
+
+    /* 2. Hide SEMUA slide (ini bagian penting) */
+
+    document.querySelectorAll(".slide").forEach(slide => {
+
+        slide.classList.add("hidden");
+
+    });
+
+    /* 3. Tampilkan slide aktif */
+
+    const active = document.getElementById(activeSlides[slideIndex]);
+
+    if (active) active.classList.remove("hidden");
+
+    slideIndex++;
+
+    if (slideIndex >= activeSlides.length) slideIndex = 0;
+
+}
+ 
 /* ================= FETCH CSV ================= */
 
 async function fetchCSV(url) {
