@@ -341,3 +341,23 @@ body {
     opacity: 0;
     transform: translateY(4px);
 }
+
+/* ===== KHOTIB CUSTOM STYLE ===== */
+#slide-khotib .section-title {
+   font-size: 32px;        /* dari 40 jadi lebih proporsional */
+   margin-bottom: 10px;
+}
+#slide-khotib .slide-subtitle {
+   font-size: 18px;
+   margin-bottom: 6px;
+}
+.khotib-content {
+   font-size: 17px;        /* lebih kecil dari slide lain */
+   line-height: 1.55;
+   text-align: left;       /* daftar lebih nyaman kiri */
+}
+.khotib-content div {
+   margin-bottom: 6px;
+   padding-left: 10px;
+   border-left: 2px solid rgba(212,175,55,0.3);
+}
