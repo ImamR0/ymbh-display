@@ -330,7 +330,17 @@ body {
    position: absolute;
    top: 20px;
    right: 30px;
-   width: 70px;          /* sesuaikan */
+   width: 120px;          /* sesuaikan */
+   height: auto;
+   opacity: 0.9;
+   filter: drop-shadow(0 0 10px rgba(0,0,0,0.6));
+}
+
+.logo-ymbh {
+   position: absolute;
+   top: 20px;
+   right: 30px;
+   width: 65px;          /* sesuaikan */
    height: auto;
    opacity: 0.9;
    filter: drop-shadow(0 0 10px rgba(0,0,0,0.6));
