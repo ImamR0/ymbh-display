@@ -348,11 +348,11 @@ body {
    margin-bottom: 10px;
 }
 #slide-khotib .slide-subtitle {
-   font-size: 20px;
+   font-size: 32px;
    margin-bottom: 6px;
 }
 .khotib-content {
-   font-size: 20px;        /* lebih kecil dari slide lain */
+   font-size: 32px;        /* lebih kecil dari slide lain */
    line-height: 1.55;
    text-align: left;       /* daftar lebih nyaman kiri */
 }
