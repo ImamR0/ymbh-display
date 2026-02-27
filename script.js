@@ -46,7 +46,7 @@ function isAdzanWindow(cols) {
        const [h, m] = time.split(":").map(Number);
        const adzan = new Date();
        adzan.setHours(h, m, 0, 0);
-       const start = new Date(adzan.getTime() - 185 * 60000);
+       const start = new Date(adzan.getTime() - 5 * 60000);
        const end   = new Date(adzan.getTime() + 15 * 60000);
        if (nowMs >= start.getTime() && nowMs <= end.getTime()) {
            return true;
