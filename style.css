@@ -339,7 +339,7 @@ body {
 .logo-ymbh {
    position: absolute;
    top: 20px;
-   right: 30px;
+   left: 30px;
    width: 65px;          /* sesuaikan */
    height: auto;
    opacity: 0.9;
